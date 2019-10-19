@@ -1,8 +1,10 @@
 {
-  "apps" : [{
-    "name"        : "Ønsk Deg",
-    "script"      : "npx",
-    "interpreter"  : "none",
-    "args"  : "serve -p 3000 build/"
-  }]
+  "apps": [
+    {
+      "name": "Jakob eller Gundelach",
+      "script": "npx",
+      "interpreter": "none",
+      "args": "serve -p 3003 build/"
+    }
+  ]
 }
