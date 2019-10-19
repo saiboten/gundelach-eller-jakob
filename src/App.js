@@ -132,6 +132,7 @@ function App() {
   const [heardQuiz, setHeardQuiz] = useState(false);
   const [answer, setAnswer] = useState(undefined);
   const [audio, setAudio] = useState(undefined);
+  const [loading, setLoading] = useState(false);
 
   function setupNewQuiz() {
     const who = Math.floor(Math.random()*2);
@@ -153,10 +154,16 @@ function App() {
     if(playing) {
       return;
     }
+
+    setLoading(true);
     setPlaying(true);
     setHeardQuiz(true);
     audio.load();
     audio.play(); 
+    audio.on('load', () => {
+      setLoading(false)
+    });
+
     audio.on('end', function(){
       setPlaying(false);
     });
@@ -167,6 +174,7 @@ function App() {
     
     isGundelach ? setGundelach(true) : setJakob(true);
     setPlaying(false);
+    audio.stop();
   }
   
   
@@ -204,7 +212,7 @@ function App() {
           </ImageButton>
         </ImageContainer>
         <div style={{ display: "flex", justifyContent: "center", alignItems: "center"}}>
-          <StartGameButton onClick={playAudio}>Spill</StartGameButton>
+          <StartGameButton onClick={playAudio}>{ loading ? 'Laster ' : 'Spill'}</StartGameButton>
         </div>
       </section>
     </Wrapper>
