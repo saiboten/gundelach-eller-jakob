@@ -87,6 +87,7 @@ const Header = styled.header`
   font-size: 1.6rem;
   text-align: center;
   margin-bottom: 1rem;
+  margin-top: 1rem;
 `;
 
 const AnswerWrapper = styled.div`
@@ -202,7 +203,7 @@ function App() {
           <Image src="/jakob.png" alt="Jakob" />
           </ImageButton>
         </ImageContainer>
-        <div style={{ display: "flex", justifyContent: "center"}}>
+        <div style={{ display: "flex", justifyContent: "center", alignItems: "center"}}>
           <StartGameButton onClick={playAudio}>Spill</StartGameButton>
         </div>
       </section>
