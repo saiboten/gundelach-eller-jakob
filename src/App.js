@@ -5,14 +5,11 @@ import { Howl } from 'howler';
 const gunSounds = [];
 const jakobSounds = [];
 
-for(let i=1; i<=16;i++) {
+for(let i=1; i<=34;i++) {
   gunSounds.push(new Howl({
     src: [`gun${i}.mp3`],
     preload: false
   }));
-}
-
-for(let i=1; i<=16;i++) {
   jakobSounds.push(new Howl({
     src: [`jakob${i}.mp3`],
     preload: false
@@ -91,7 +88,7 @@ const Header = styled.header`
 `;
 
 const AnswerWrapper = styled.div`
-  transition: all .5s;
+  transition: all .6s;
   opacity: ${({ isSelected }) => isSelected ? '1': '0'};
   z-index: ${({ isSelected }) => isSelected ? '5': '-1'};
   position: fixed;
@@ -133,6 +130,8 @@ function App() {
   const [answer, setAnswer] = useState(undefined);
   const [audio, setAudio] = useState(undefined);
   const [loading, setLoading] = useState(false);
+  const [quizCounter, setQuizCounter] = useState(0);
+  const [correctCounter, setCorrectCounter] = useState(0);
 
   function setupNewQuiz() {
     const who = Math.floor(Math.random()*2);
@@ -173,6 +172,10 @@ function App() {
     if(!heardQuiz) return;
     
     isGundelach ? setGundelach(true) : setJakob(true);
+    if((answer === "gun" && isGundelach) || (answer === "jakob" && !isGundelach)) {
+      setCorrectCounter(correctCounter+1);
+    }
+    setQuizCounter(quizCounter+1);
     setPlaying(false);
     audio.stop();
   }
@@ -215,6 +218,7 @@ function App() {
           <StartGameButton onClick={playAudio}>{ loading ? 'Laster ' : 'Spill'}</StartGameButton>
         </div>
       </section>
+      {quizCounter > 0 && <div>Score: {correctCounter}/{quizCounter}</div>}
     </Wrapper>
   );
 }
